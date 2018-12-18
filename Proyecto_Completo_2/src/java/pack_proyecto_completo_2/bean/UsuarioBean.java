@@ -27,29 +27,33 @@ public class UsuarioBean implements Serializable {
     private Usuario usuario;
     private Usuario usuarioSel;
     private Boolean enAgregar;
+    private Boolean enModificar;
+    private String codigoBusqueda;
 
     @Inject
     private UsuarioService usuarioService;
 
     @PostConstruct
     public void init() {
+        enAgregar = Boolean.FALSE;
+        enModificar = Boolean.FALSE;
         this.usuarios = this.usuarioService.obtenerTodos();
         this.usuario = new Usuario();
     }
 
     public void agregar() {
+        enAgregar = Boolean.TRUE;
         this.usuario = new Usuario();
     }
 
     public void modificar() {
+        enModificar = Boolean.TRUE;
         this.usuario = new Usuario();
-        this.usuario.setCodigo(this.usuarioSel.getCodigo());
-        this.usuario.setNombre(this.usuarioSel.getNombre());
-        this.usuario.setContrasena(this.usuarioSel.getContrasena());
-        this.usuario.setPermisos(this.usuarioSel.getPermisos());
     }
 
     public void cancelar() {
+        enAgregar = Boolean.FALSE;
+        enModificar = Boolean.FALSE;
         this.usuario = new Usuario();
         this.usuarioSel = null;
     }
@@ -57,30 +61,84 @@ public class UsuarioBean implements Serializable {
     public void guardar() {
         try {
             if (enAgregar) {
-                this.usuarioService.usuarioFacade.create(this.usuario);
+                this.usuarioService.crear(this.usuario);
             } else {
-                this.usuarioService.usuarioFacade.edit(usuario);
+                this.usuario.setCodigo(this.usuarioSel.getCodigo());
+                this.usuario.setNombre(this.usuarioSel.getNombre());
+                this.usuario.setContrasena(this.usuarioSel.getContrasena());
+                this.usuario.setPermisos(this.usuarioSel.getPermisos());
+                this.usuarioService.modificar(usuario);
             }
         } catch (Exception ex) {
         }
         this.usuario = new Usuario();
         this.usuarios = this.usuarioService.obtenerTodos();
+        enAgregar = Boolean.FALSE;
+        enModificar = Boolean.FALSE;
     }
 
     public void eliminar() {
-        this.usuarioService.usuarioFacade.remove(this.usuarioSel);
+        this.usuarioService.eliminar(this.usuarioSel);
         this.usuario = new Usuario();
         this.usuarios = this.usuarioService.obtenerTodos();
     }
 
     public void buscar() {
         this.usuarios = new ArrayList<>();
-        Usuario usrEncontrado = this.usuarioService.usuarioFacade.find(this.usuario.getCodigo());
+        List<Usuario> usrEncontrado = this.usuarioService.busquedaUsuario(codigoBusqueda);
         if (usrEncontrado != null) {
-            this.usuarios.add(usrEncontrado);
+            this.usuarios.addAll(usrEncontrado);
         } else {
             this.usuarios = null;
         }
         this.usuario = new Usuario();
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Usuario getUsuarioSel() {
+        return usuarioSel;
+    }
+
+    public void setUsuarioSel(Usuario usuarioSel) {
+        this.usuarioSel = usuarioSel;
+    }
+
+    public Boolean getEnAgregar() {
+        return enAgregar;
+    }
+
+    public void setEnAgregar(Boolean enAgregar) {
+        this.enAgregar = enAgregar;
+    }
+
+    public Boolean getEnModificar() {
+        return enModificar;
+    }
+
+    public void setEnModificar(Boolean enModificar) {
+        this.enModificar = enModificar;
+    }
+
+    public String getCodigoBusqueda() {
+        return codigoBusqueda;
+    }
+
+    public void setCodigoBusqueda(String codigoBusqueda) {
+        this.codigoBusqueda = codigoBusqueda;
     }
 }

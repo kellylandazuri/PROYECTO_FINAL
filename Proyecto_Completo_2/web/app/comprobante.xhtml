@@ -28,21 +28,21 @@
                     <p:panelGrid columns="3" >
                         <p:panelGrid columns="2">
                             <p:outputLabel for="codCuenta" value="Cuenta" />
-                            <p:inputText id="codCuenta" value="#{d}"/>
+                            <p:inputText id="codCuenta" value="#{d.codigoCuenta}"/>
                         </p:panelGrid>
                         <p:panelGrid columns="2">
                             <p:outputLabel for="cantDebe" value="Cantidad Debe" />
-                            <p:inputText id="cantDebe" value="#{d}" />  
+                            <p:inputText id="cantDebe" value="#{d.cantidadDebe}" />  
                         </p:panelGrid>
                         <p:panelGrid columns="2">
                             <p:outputLabel for="cantHaber" value="Cantidad Haber" />
-                            <p:inputText id="cantHaber" value="#{d}" />  
+                            <p:inputText id="cantHaber" value="#{d.cantidadHaber}" />  
                         </p:panelGrid>
                     </p:panelGrid>
                 </ui:repeat>
-                <p:commandButton value="Nuevo Detalle" id="btnNuevoDet" update="@form" action="#{comprobanteBean.nuevoDetalle}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+                <p:commandButton value="Nuevo Detalle" id="btnNuevoDet" update="@form" action="#{comprobanteBean.nuevoDetalle()}" style="margin-right:20px;" styleClass="ui-priority-primary" />
             </p:panelGrid>
-            <p:commandButton value="Guardar Factura" id="btnGuardar" update="@form" action="#{comprobanteBean.nuevoDetalle}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+            <p:commandButton value="Guardar Factura" id="btnGuardar" update="@form" action="#{comprobanteBean.nuevoDetalle()}" style="margin-right:20px;" styleClass="ui-priority-primary" />
         </h:form>
 
     </h:body>

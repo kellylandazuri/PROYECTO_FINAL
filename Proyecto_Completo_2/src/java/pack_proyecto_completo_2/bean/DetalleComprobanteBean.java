@@ -5,6 +5,7 @@
  */
 package pack_proyecto_completo_2.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,7 +20,7 @@ import pack_proyecto_completo_2.service.DetalleComprobanteService;
  */
 @Named
 @ViewScoped
-public class DetalleComprobanteBean {
+public class DetalleComprobanteBean implements Serializable{
 
     private List<DetalleComprobante> detalles;
 

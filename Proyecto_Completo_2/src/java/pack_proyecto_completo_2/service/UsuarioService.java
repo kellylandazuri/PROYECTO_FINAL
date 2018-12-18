@@ -17,20 +17,43 @@ import pack_proyecto_completo_2.models.Usuario;
  */
 @Stateless
 public class UsuarioService {
+
     @EJB
     public UsuarioFacade usuarioFacade;
     
-     public List<Usuario> obtenerTodos(){
+    public List<Usuario> obtenerTodos() {
         return this.usuarioFacade.findAll();
     }
+    
+    public Usuario obtener(Integer id) {
+        return this.usuarioFacade.find(id);
+    }
+    
+    public void crear(Usuario usuario) {
+        this.usuarioFacade.create(usuario);
+    }
+    
+    public void modificar(Usuario usuario) {
+        this.usuarioFacade.edit(usuario);
+    }
+    
+    public void eliminar(Usuario usuario) {
+        this.usuarioFacade.remove(usuario);
+    }
+    
     public Usuario login(String codUsuario, String clave) {
         Usuario usuarioCuda = null;
-        try{
-        usuarioCuda = usuarioFacade.getEntityManager().createQuery("SELECT u FROM UsuarioCuda u WHERE u.nombreUsuario=:cod AND u.contrasenaUsuario=:pass", Usuario.class)
-                .setParameter("cod", codUsuario).setParameter("pass", clave).getSingleResult();
-        }catch(Exception ex){
+        try {
+            usuarioCuda = usuarioFacade.getEntityManager().createQuery("SELECT u FROM Usuario u WHERE u.codigo=:cod AND u.contrasena=:pass", Usuario.class)
+                    .setParameter("cod", codUsuario).setParameter("pass", clave).getSingleResult();
+        } catch (Exception ex) {
             return null;
         }
         return usuarioCuda;
+    }
+    
+    public List<Usuario> busquedaUsuario(String nombre) {
+        return usuarioFacade.getEntityManager().createQuery("SELECT u FROM Usuario u WHERE u.nombre like :nombre")
+                .setParameter("nombre", "%" + nombre + "%").getResultList();
     }
 }

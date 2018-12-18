@@ -5,6 +5,7 @@
  */
 package pack_proyecto_completo_2.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -20,7 +21,7 @@ import pack_proyecto_completo_2.service.CabeceraComprobanteService;
  */
 @Named
 @ViewScoped
-public class CabeceraComprobanteBean {
+public class CabeceraComprobanteBean implements Serializable{
      private List<CabeceraComprobante> cabeceras;  
     
     @Inject

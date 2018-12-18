@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import pack_proyecto_completo_2.models.DetalleComprobante;
 
 /**
  *
@@ -21,47 +22,49 @@ import javax.inject.Named;
 @ViewScoped
 public class ComprobanteBean implements Serializable {
 
-    List<String> detalles;
-    String detalle;
-    String detalleSel;
+    List<DetalleComprobante> detalles;
+    DetalleComprobante detalle;
+    DetalleComprobante detalleSel;
     Date fecha;
     String observaciones;
 
     @PostConstruct
     public void init() {
         detalles = new ArrayList<>();
-        detalleSel = new String();
+        detalleSel = new DetalleComprobante();
         detalles.add(detalle);
     }
 
     public void nuevoDetalle() {
-        detalleSel = new String();
+        detalleSel = new DetalleComprobante();
         detalles.add(detalleSel);
     }
 
-    public List<String> getDetalles() {
+    public List<DetalleComprobante> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<String> detalles) {
+    public void setDetalles(List<DetalleComprobante> detalles) {
         this.detalles = detalles;
     }
 
-    public String getDetalle() {
+    public DetalleComprobante getDetalle() {
         return detalle;
     }
 
-    public void setDetalle(String detalle) {
+    public void setDetalle(DetalleComprobante detalle) {
         this.detalle = detalle;
     }
 
-    public String getDetalleSel() {
+    public DetalleComprobante getDetalleSel() {
         return detalleSel;
     }
 
-    public void setDetalleSel(String detalleSel) {
+    public void setDetalleSel(DetalleComprobante detalleSel) {
         this.detalleSel = detalleSel;
     }
+
+    
 
     public Date getFecha() {
         return fecha;

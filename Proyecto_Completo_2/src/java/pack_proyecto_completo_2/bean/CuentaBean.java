@@ -5,6 +5,7 @@
  */
 package pack_proyecto_completo_2.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,7 +20,7 @@ import pack_proyecto_completo_2.service.CuentaService;
  */
 @Named
 @ViewScoped
-public class CuentaBean {
+public class CuentaBean implements Serializable{
     
      private List<Cuenta> cuentas;  
     
