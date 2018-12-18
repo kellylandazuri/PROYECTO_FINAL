@@ -17,7 +17,7 @@
                     <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{cuentaBean.buscar()}" update="@form" />
                 </p:panel>
                 <p:dataTable var="cuenta" value="#{cuentaBean.cuentas}" emptyMessage="No se encontraron CUENTAS registrados"
-                             selectionMode="single" selection="#{cuentaBean.cuentaSel}" rowKey="#{cuenta.codigo}">
+                             selectionMode="single" selection="#{cuentaBean.cuentaSel}" rowKey="#{cuenta.codigoCuenta}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">

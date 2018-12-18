@@ -13,13 +13,13 @@
         <h:form>
             <p:panelGrid columns="2">
                 <p:outputLabel for="fecha" value="Fecha" />
-                <p:calendar id="fecha" value="#{comprobanteBean.fecha}" showOn="button" />
+                <p:calendar id="fecha" value="#{comprobanteBean.cabeceraComprobante.fechaCabecera}" showOn="button" />
                 <p:outputLabel for="observaciones" value="Observaciones" />
-                <p:inputText id="observaciones" value="#{comprobanteBean.observaciones}"/>
+                <p:inputText id="observaciones" value="#{comprobanteBean.cabeceraComprobante.observaciones}"/>
             </p:panelGrid>
              <p:panelGrid columns="2">
                 <p:outputLabel for="totalDebe" value="Total Debe" />
-                <p:outputLabel id="totalDebe" value="debet" />
+                <p:outputLabel id="totalDebe" value="debe" />
                  <p:outputLabel for="totalHaber" value="Total Haber" />
                 <p:outputLabel id="totalHaber" value="haber" />
             </p:panelGrid>

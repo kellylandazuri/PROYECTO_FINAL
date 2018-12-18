@@ -31,6 +31,8 @@ public class ComprobanteBean implements Serializable {
     CabeceraComprobante cabeceraComprobante;
     Date fecha;
     String observaciones;
+    private Boolean enAgregar;
+    private Boolean enModificar;
     
      private List<CabeceraComprobante> cabeceras;  
     
@@ -41,6 +43,8 @@ public class ComprobanteBean implements Serializable {
     public void init() {
         detalles = new ArrayList<>();
         detalleSel = new DetalleComprobante();
+        enAgregar = Boolean.FALSE;
+        enModificar = Boolean.FALSE;
         cabeceraComprobante= new CabeceraComprobante();
         detalles.add(detalle);
     }
@@ -50,6 +54,17 @@ public class ComprobanteBean implements Serializable {
         detalles.add(detalleSel);
     }
 
+    public void guardar() {
+        try {
+            if (enAgregar) {
+                this.cabeceraComprobanteService.crear(cabeceraComprobante);
+            } 
+        } catch (Exception ex) {
+        }
+
+        enAgregar = Boolean.FALSE;
+        enModificar = Boolean.FALSE;
+    }
     public List<DetalleComprobante> getDetalles() {
         return detalles;
     }
@@ -70,8 +85,40 @@ public class ComprobanteBean implements Serializable {
         return detalleSel;
     }
 
+    public Boolean getEnAgregar() {
+        return enAgregar;
+    }
+
+    public void setEnAgregar(Boolean enAgregar) {
+        this.enAgregar = enAgregar;
+    }
+
+    public Boolean getEnModificar() {
+        return enModificar;
+    }
+
+    public void setEnModificar(Boolean enModificar) {
+        this.enModificar = enModificar;
+    }
+
     public void setDetalleSel(DetalleComprobante detalleSel) {
         this.detalleSel = detalleSel;
+    }
+
+    public CabeceraComprobante getCabeceraComprobante() {
+        return cabeceraComprobante;
+    }
+
+    public void setCabeceraComprobante(CabeceraComprobante cabeceraComprobante) {
+        this.cabeceraComprobante = cabeceraComprobante;
+    }
+
+    public List<CabeceraComprobante> getCabeceras() {
+        return cabeceras;
+    }
+
+    public void setCabeceras(List<CabeceraComprobante> cabeceras) {
+        this.cabeceras = cabeceras;
     }
 
 
@@ -90,6 +137,7 @@ public class ComprobanteBean implements Serializable {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
+    
     
     
 

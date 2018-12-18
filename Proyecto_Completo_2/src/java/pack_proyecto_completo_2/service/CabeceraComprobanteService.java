@@ -23,4 +23,9 @@ public class CabeceraComprobanteService {
      public List<CabeceraComprobante> obtenerTodos(){
         return this.cabeceraComprobanteFacade.findAll();
     }
+     
+     
+     public void crear(CabeceraComprobante cuenta) {
+        this.cabeceraComprobanteFacade.create(cuenta);
+    }
 }
