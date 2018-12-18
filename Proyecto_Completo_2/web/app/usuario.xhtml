@@ -11,11 +11,11 @@
             <p:panel id="mainPnl" header="Usuarios" style="width: 80%; margin: auto;">
                 <p:panel id="buscPnl" header="Busqueda">
                     <p:outputLabel for="bscCodigo" value="Buscar Usuario:" />
-                    <p:inputText id="bscCodigo" value="#{segUsuarioBean.segUsuario.codigo}" disabled="#{segUsuarioBean.enModificar}" />
-                    <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{segUsuarioBean.buscar()}" update="@form" />
+                    <p:inputText id="bscCodigo" value="#{usuarioBean.segUsuario.codigo}" disabled="#{usuarioBean.enModificar}" />
+                    <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{usuarioBean.buscar()}" update="@form" />
                 </p:panel>
-                <p:dataTable var="usuario" value="#{segUsuarioBean.segUsuarios}" emptyMessage="No se encontraron usuarios registrados"
-                             selectionMode="single" selection="#{segUsuarioBean.segUsuarioSel}" rowKey="#{usuario.codigo}">
+                <p:dataTable var="usuario" value="#{usuarioBean.segUsuarios}" emptyMessage="No se encontraron usuarios registrados"
+                             selectionMode="single" selection="#{usuarioBean.segUsuarioSel}" rowKey="#{usuario.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
@@ -37,39 +37,27 @@
                         <h:outputText value="#{usuario.intentosErroneos}" />
                     </p:column>
                 </p:dataTable>
-                <p:commandButton value="Agregar" actionListener="#{segUsuarioBean.agregar()}" update="@form"/>
-                <p:commandButton value="Modificar" actionListener="#{segUsuarioBean.modificar()}" update="@form" disabled="#{segUsuarioBean.segUsuarioSel eq null}"/>
-                <p:commandButton value="Eliminar" actionListener="#{segUsuarioBean.eliminar()}" update="@form" disabled="#{segUsuarioBean.segUsuarioSel eq null}">
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el usuario #{segUsuarioBean.segUsuarioSel.codigo}}" icon="ui-icon-alert" />
+                <p:commandButton value="Agregar" actionListener="#{usuarioBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{usuarioBean.modificar()}" update="@form" disabled="#{usuarioBean.segUsuarioSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{usuarioBean.eliminar()}" update="@form" disabled="#{usuarioBean.segUsuarioSel eq null}">
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el usuario #{usuarioBean.segUsuarioSel.codigo}}" icon="ui-icon-alert" />
                 </p:commandButton>
-                <p:panel header="Registrar usuario" rendered="#{segUsuarioBean.habilitaForm}">
+                <p:panel header="Registrar usuario" rendered="#{usuarioBean.habilitaForm}">
                     <p:panelGrid columns="3">
                         <p:outputLabel for="codigo" value="C&#243;digo" />
-                        <p:inputText id="codigo" value="#{segUsuarioBean.segUsuario.codigo}" disabled="#{segUsuarioBean.enModificar}" required="true" requiredMessage="Debe ingresar el codigo"/>
+                        <p:inputText id="codigo" value="#{usuarioBean.segUsuario.codigo}" disabled="#{usuarioBean.enModificar}" required="true" requiredMessage="Debe ingresar el codigo"/>
                         <p:message for="codigo" />
                         <p:outputLabel for="perfil" value="Perfil" />
-                        <h:selectOneMenu id="perfil" value="#{segUsuarioBean.codigoPerfil}">
-                            <f:selectItems id="tipo" value="#{segUsuarioBean.segPerfiles}" var="tipoPerfil" itemValue="#{tipoPerfil.codigo}" itemLabel="#{tipoPerfil.nombre}"  />                          
+                        <h:selectOneMenu id="perfil" value="#{usuarioBean.codigoPerfil}">
+                            <f:selectItems id="tipo" value="#{usuarioBean.segPerfiles}" var="tipoPerfil" itemValue="#{tipoPerfil.codigo}" itemLabel="#{tipoPerfil.nombre}"  />                          
                         </h:selectOneMenu>
                         <p:message for="perfil" />
                         <p:outputLabel for="nombre" value="Nombre" />
-                        <p:inputText id="nombre" value="#{segUsuarioBean.segUsuario.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
+                        <p:inputText id="nombre" value="#{usuarioBean.segUsuario.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
                         <p:message for="nombre" />
-                        <p:outputLabel for="correo" value="Correo" />
-                        <p:inputText id="correo" value="#{segUsuarioBean.segUsuario.correoElectronico}"  required="true" requiredMessage="Debe ingresara el correo"/>
-                        <p:message for="correo" />
-                        <p:outputLabel for="estado" value="Estado" />
-                        <h:selectOneMenu id="estado" value="#{segUsuarioBean.segUsuario.estado}" required="true" requiredMessage="Debe seleccionar un estado">
-                            <f:selectItem  itemValue="ACT" itemLabel="Activo"  />       
-                            <f:selectItem  itemValue="INA" itemLabel="Inactivo"  /> 
-                            <f:selectItem  itemValue="SUS" itemLabel="Suspendido"  /> 
-                            <f:selectItem itemValue="BLO" itemLabel="BLoqueado"  /> 
-                            <f:selectItem  itemValue="PEN" itemLabel="Pendiente"  /> 
-                        </h:selectOneMenu>
-                        <p:message for="estado" />
                     </p:panelGrid>
-                    <p:commandButton value="Aceptar" actionListener="#{segUsuarioBean.guardar}" update="@form" />
-                    <p:commandButton value="Cancelar" actionListener="#{segUsuarioBean.cancelar}" update="@form" immediate="true"/>
+                    <p:commandButton value="Aceptar" actionListener="#{usuarioBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{usuarioBean.cancelar}" update="@form" immediate="true"/>
                 </p:panel>
             </p:panel>
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
