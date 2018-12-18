@@ -11,8 +11,11 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import pack_proyecto_completo_2.models.CabeceraComprobante;
 import pack_proyecto_completo_2.models.DetalleComprobante;
+import pack_proyecto_completo_2.service.CabeceraComprobanteService;
 
 /**
  *
@@ -25,13 +28,20 @@ public class ComprobanteBean implements Serializable {
     List<DetalleComprobante> detalles;
     DetalleComprobante detalle;
     DetalleComprobante detalleSel;
+    CabeceraComprobante cabeceraComprobante;
     Date fecha;
     String observaciones;
+    
+     private List<CabeceraComprobante> cabeceras;  
+    
+    @Inject
+    CabeceraComprobanteService cabeceraComprobanteService;
 
     @PostConstruct
     public void init() {
         detalles = new ArrayList<>();
         detalleSel = new DetalleComprobante();
+        cabeceraComprobante= new CabeceraComprobante();
         detalles.add(detalle);
     }
 
@@ -64,7 +74,6 @@ public class ComprobanteBean implements Serializable {
         this.detalleSel = detalleSel;
     }
 
-    
 
     public Date getFecha() {
         return fecha;

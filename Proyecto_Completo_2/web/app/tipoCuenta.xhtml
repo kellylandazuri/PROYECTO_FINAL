@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/include/template.xhtml">
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel id="mainPnl" header="Cuetnas" style="width: 80%; margin: auto;">
+                <p:panel id="buscPnl" header="Busqueda">
+                    <p:outputLabel for="bscCodigo" value="Buscar Cuenta:" />
+                    <p:inputText id="bscCodigo" value="#{tipoCuentaBean.codigoBusqueda}" disabled="#{tipoCuentaBean.enModificar}" />
+                    <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{tipoCuentaBean.buscar()}" update="@form" />
+                </p:panel>
+                <p:dataTable var="tipoC" value="#{tipoCuentaBean.tipos}" emptyMessage="No se encontraron CUENTAS registrados"
+                             selectionMode="single" selection="#{tipoCuentaBean.tipoCuentaSel}" rowKey="#{tipoC.codigoTipo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{tipoC.codigoTipo}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{tipoC.nombreTipo}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{tipoCuentaBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{tipoCuentaBean.modificar()}" update="@form" disabled="#{tipoCuentaBean.cuentaSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{tipoCuentaBean.eliminar()}" update="@form" disabled="#{tipoCuentaBean.cuentaSel eq null}">
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el tipoCuenta #{tipoCuentaBean.cuentaSel.nombre}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="Registrar tipoCuenta" rendered="#{tipoCuentaBean.enAgregar}">
+                    <p:panelGrid columns="3">
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{tipoCuentaBean.tipoCuenta.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
+                        <p:message for="nombre" />
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{tipoCuentaBean.guardar()}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{tipoCuentaBean.cancelar()}" update="@form" immediate="true"/>
+                </p:panel>
+                <p:panel header="Modificar tipoCuenta" rendered="#{tipoCuentaBean.enModificar}">
+                    <p:panelGrid columns="3">
+                        <p:outputLabel for="nombreS" value="Nombre" />
+                        <p:inputText id="nombreS" value="#{tipoCuentaBean.cuentaSel.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
+                        <p:message for="nombreS" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{tipoCuentaBean.guardar()}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{tipoCuentaBean.cancelar()}" update="@form" immediate="true"/>
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</html>

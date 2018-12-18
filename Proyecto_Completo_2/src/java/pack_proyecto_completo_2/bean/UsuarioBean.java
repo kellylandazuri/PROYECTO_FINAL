@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,6 +34,9 @@ public class UsuarioBean implements Serializable {
 
     @Inject
     private UsuarioService usuarioService;
+    
+    @Inject
+     UsuarioSesionBean usuarioSesionBean;
 
     @PostConstruct
     public void init() {
@@ -39,6 +44,19 @@ public class UsuarioBean implements Serializable {
         enModificar = Boolean.FALSE;
         this.usuarios = this.usuarioService.obtenerTodos();
         this.usuario = new Usuario();
+    }
+    public String login() {
+            Usuario usuario;
+            FacesContext context = FacesContext.getCurrentInstance();
+         
+            usuario = usuarioService.login(this.usuario.getNombre(), this.usuario.getContrasena());
+            if (usuario != null ) {
+                usuarioSesionBean.setUsuario(usuario);
+                   return "/faces/app/menu.xhtml?faces-redirect=true";
+            } else {
+                        context.addMessage(null, new FacesMessage("ERROR", "Los datos ingresados no corresponden por favor verifique") );
+                           return "/faces/index.xhtml";
+            }
     }
 
     public void agregar() {
@@ -94,7 +112,8 @@ public class UsuarioBean implements Serializable {
         this.usuario = new Usuario();
     }
 
-    public List<Usuario> getUsuarios() {
+
+public List<Usuario> getUsuarios() {
         return usuarios;
     }
 

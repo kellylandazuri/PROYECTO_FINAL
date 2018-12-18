@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="HOME" outcome="/app/menu" icon="ui-icon-home"/>
+                <c:if test="#{usuarioSesionBean.usuario.nombre == 'admin'}">
+                    <p:menuitem value="Usuario" outcome="/app/usuario" />
+                </c:if>
+                <p:submenu label="Biblioteca">
+                </p:submenu>
+                <p:submenu label="Contabilidad">
+                    <p:menuitem value="Cuenta" outcome="/app/cuenta" />
+                    <p:menuitem value="Tipo cuenta" outcome="/app/tipoCuenta" />
+                    <p:menuitem value="Comprobante" outcome="/app/comprobante" />
+                </p:submenu>
+                <p:submenu label="Mantenimiento">
+                </p:submenu>
+                <p:menuitem value="Salir" actionListener="#{logoutBean.cerrarSesion()}" icon="ui-icon-extlink"/>
+            </p:menubar>
+
+        </h:form>
+    </ui:composition>
+
+</html>

@@ -24,5 +24,24 @@ public class CuentaService {
      public List<Cuenta> obtenerTodos(){
         return this.cuentaFacade.findAll();
     }
+     
+      public Cuenta obtener(Integer id) {
+        return this.cuentaFacade.find(id);
+    }
     
+    public void crear(Cuenta cuenta) {
+        this.cuentaFacade.create(cuenta);
+    }
+    
+    public void modificar(Cuenta cuenta) {
+        this.cuentaFacade.edit(cuenta);
+    }
+    
+    public void eliminar(Cuenta cuenta) {
+        this.cuentaFacade.remove(cuenta);
+    }
+     public List<Cuenta> busquedaCuenta(String nombre) {
+        return cuentaFacade.getEntityManager().createQuery("SELECT u FROM Cuenta u WHERE u.nombreCuenta like :nombre")
+                .setParameter("nombreCuenta", "%" + nombre + "%").getResultList();
+    }
 }

@@ -23,5 +23,24 @@ public class TipoCuentaService {
      public List<TipoCuenta> obtenerTodos(){
         return this.tipoCuentaFacade.findAll();
     }
+       public TipoCuenta obtener(Integer id) {
+        return this.tipoCuentaFacade.find(id);
+    }
+    
+    public void crear(TipoCuenta tipoCuenta) {
+        this.tipoCuentaFacade.create(tipoCuenta);
+    }
+    
+    public void modificar(TipoCuenta tipoCuenta) {
+        this.tipoCuentaFacade.edit(tipoCuenta);
+    }
+    
+    public void eliminar(TipoCuenta tipoCuenta) {
+        this.tipoCuentaFacade.remove(tipoCuenta);
+    }
+     public List<TipoCuenta> busquedaTipoCuenta(String nombre) {
+        return tipoCuentaFacade.getEntityManager().createQuery("SELECT u FROM TipoCuenta u WHERE u.nombreTipo like :nombre")
+                .setParameter("nombreTipo", "%" + nombre + "%").getResultList();
+    }
     
 }

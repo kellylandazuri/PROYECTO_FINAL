@@ -41,11 +41,11 @@ public class UsuarioService {
         this.usuarioFacade.remove(usuario);
     }
     
-    public Usuario login(String codUsuario, String clave) {
+    public Usuario login(String nombre, String clave) {
         Usuario usuarioCuda = null;
         try {
-            usuarioCuda = usuarioFacade.getEntityManager().createQuery("SELECT u FROM Usuario u WHERE u.codigo=:cod AND u.contrasena=:pass", Usuario.class)
-                    .setParameter("cod", codUsuario).setParameter("pass", clave).getSingleResult();
+            usuarioCuda = usuarioFacade.getEntityManager().createQuery("SELECT u FROM Usuario u WHERE u.nombre=:nom AND u.contrasena=:pass", Usuario.class)
+                    .setParameter("nom", nombre).setParameter("pass", clave).getSingleResult();
         } catch (Exception ex) {
             return null;
         }

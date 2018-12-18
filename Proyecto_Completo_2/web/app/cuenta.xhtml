@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      template="/WEB-INF/include/template.xhtml">
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel id="mainPnl" header="Cuetnas" style="width: 80%; margin: auto;">
+                <p:panel id="buscPnl" header="Busqueda">
+                    <p:outputLabel for="bscCodigo" value="Buscar Cuenta:" />
+                    <p:inputText id="bscCodigo" value="#{cuentaBean.codigoBusqueda}" disabled="#{cuentaBean.enModificar}" />
+                    <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{cuentaBean.buscar()}" update="@form" />
+                </p:panel>
+                <p:dataTable var="cuenta" value="#{cuentaBean.cuentas}" emptyMessage="No se encontraron CUENTAS registrados"
+                             selectionMode="single" selection="#{cuentaBean.cuentaSel}" rowKey="#{cuenta.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{cuenta.codigoCuenta}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{cuenta.nombreCuenta}" />
+                    </p:column>
+                    <p:column headerText="Tipo Cuenta">
+                        <h:outputText value="#{cuenta.codigoTipo.codigoTipo}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{cuentaBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{cuentaBean.modificar()}" update="@form" disabled="#{cuentaBean.cuentaSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{cuentaBean.eliminar()}" update="@form" disabled="#{cuentaBean.cuentaSel eq null}">
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el cuenta #{cuentaBean.cuentaSel.nombre}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="Registrar cuenta" rendered="#{cuentaBean.enAgregar}">
+                    <p:panelGrid columns="3">
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{cuentaBean.cuenta.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
+                        <p:message for="nombre" />
+                        <p:panelGrid columns="3" >
+                        <p:outputLabel for="cbxPeriodo"  value="TIPO CUENTA: "/>
+                        <p:selectOneMenu  id="cbxPeriodo"  value="#{cuentaBean.tipoCuentaSel}" style="width:300px" required="true" requiredMessage="Debe seleccionar un período">
+                            <f:selectItems id="tipoCuenta" value="#{cuentaBean.tipoCuentas}" var="tipoCuenta" itemValue="#{tipoCuenta.codigoTipo}" itemLabel="#{tipoCuenta.nombreTipo}"/>
+                        </p:selectOneMenu>
+                        <p:message for="cbxPeriodo" />
+                    </p:panelGrid>
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{cuentaBean.guardar()}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{cuentaBean.cancelar()}" update="@form" immediate="true"/>
+                </p:panel>
+                <p:panel header="Modificar cuenta" rendered="#{cuentaBean.enModificar}">
+                    <p:panelGrid columns="3">
+                        <p:outputLabel for="nombreS" value="Nombre" />
+                        <p:inputText id="nombreS" value="#{cuentaBean.cuentaSel.nombre}"  required="true" requiredMessage="Debe ingresar el nombre"/>
+                        <p:message for="nombreS" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{cuentaBean.guardar()}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{cuentaBean.cancelar()}" update="@form" immediate="true"/>
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</html>
